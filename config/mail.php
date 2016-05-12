@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
+    'from' => ['address' => 'contact@lambillionea.be', 'name' => 'lambillionea.be'],
 
     /*
     |--------------------------------------------------------------------------

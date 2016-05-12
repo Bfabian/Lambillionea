@@ -15,6 +15,17 @@ Route::group(['middleware'=>['web']], function(){
     });
  
 });
+// Fabian**************************************************************************
+//Pour formulaire de proposeArticle
+Route::get('/publier/proposearticle',[
+    'as'=>'ProposeArticle',
+    'uses'=>'ArticleController@ProposeArticle'
+]);
+Route::post('/publier/proposearticle',[
+    'as'=>'ProposeArticle',
+    'uses'=>'ArticleController@post'
+]);
+/****************************************************
 
    /*La liste de revues*/
     Route::get('/revues', [
@@ -82,4 +93,24 @@ Route::group(['middleware'=>['web']], function(){
     'as'=>'detailAccueil',
     'uses'=>'AccueilController@detail'
 ]);*/
+// Fabian**************************************************************************
+//Pour formulaire de proposeArticle
+/*Route::get('/publier/proposearticle',[
+    'as'=>'ProposeArticle',
+    'uses'=>'ArticleController@ProposeArticle'
+]);
+Route::post('/publier/proposearticle',[
+    'as'=>'ProposeArticle',
+    'uses'=>'ArticleController@post'
+]);
+//route::post('article','ArticleController@post');
+//Route::get(' proposearticle', ['as' => 'ProposeArticle', function(){
+//    return view('ProposeArticle');
+//}]);
+//Route::get('proposearticle', ['as' => 'ProposeArticle', function(){
+//    return view('Articles.FormulairePropose');
+//}]);
+//Route::get('/publier/proposearticle','ArticleController@ProposeArticle');
+//Route::post('proposearticle','ArticleController@post');
+//Pour l'envois du formulaire par mail
 

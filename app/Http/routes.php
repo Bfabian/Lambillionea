@@ -11,7 +11,11 @@ Route::group(['middleware'=>['web']], function(){
     
     //Groupe des routes pour la partie admin
     Route::group(['prefix'=>'admin'], function(){
-        
+        Route::get('/',function(){
+            return view('Layouts.app');
+        });
+        Route::auth();
+        Route::get('/home', 'HomeController@index');
     });
  
 });
@@ -102,7 +106,7 @@ Route::post('/publier/proposearticle',[
 Route::post('/publier/proposearticle',[
     'as'=>'ProposeArticle',
     'uses'=>'ArticleController@post'
-]);
+]);*/
 //route::post('article','ArticleController@post');
 //Route::get(' proposearticle', ['as' => 'ProposeArticle', function(){
 //    return view('ProposeArticle');
@@ -114,3 +118,7 @@ Route::post('/publier/proposearticle',[
 //Route::post('proposearticle','ArticleController@post');
 //Pour l'envois du formulaire par mail
 
+
+/*Route::auth();
+
+*/

@@ -11,7 +11,7 @@
                                 <p>Année {{ $revue->annee}},  N°{{ $revue->fascicule }}, Tome : {{ $revue->tome }}</p>
                                 <span class="card-price grey-text text-lighten-1">50€</span>
                                 <div class="card-action">
-                                    <a href="#">AJOUTER AU PANIER</a>
+                                    <a href="{{route('panier-add',['revue'=>$revue->id]) }}">AJOUTER AU PANIER</a>
                                     <!--id pour la requete AJAX-->
                                     <a data-id="{{ $revue->id }}" class="modal-trigger right detailRevue" href="#revue01">EN SAVOIR +</a>
                                 </div>

@@ -11,25 +11,91 @@ Route::group(['middleware'=>['web']], function(){
     
     //Groupe des routes pour la partie admin
     Route::group(['prefix'=>'admin'], function(){
-        Route::get('/',function(){
-            return view('Layouts.app');
-        });
-        Route::auth();
-        Route::get('/home', 'HomeController@index');
+        
     });
  
 });
-// Fabian**************************************************************************
-//Pour formulaire de proposeArticle
-Route::get('/publier/proposearticle',[
-    'as'=>'ProposeArticle',
-    'uses'=>'ArticleController@ProposeArticle'
-]);
-Route::post('/publier/proposearticle',[
-    'as'=>'ProposeArticle',
-    'uses'=>'ArticleController@post'
-]);
-/****************************************************
+    /*-----------------------------------------------------
+     * Panier d'achats
+     -----------------------------------------------------*/
+     Route::bind('revue', function($id){
+         return App\Revue::where('id',$id)->first();
+     });
+
+     Route::get('/panier/show', [
+    'as'=>'panier-show',
+    'uses'=>'PanierController@show'
+    ]);
+     
+    Route::get('/panier/add/{revue}', [
+    'as'=>'panier-add',
+    'uses'=>'PanierController@add'
+    ]);
+    
+    Route::get('/panier/delete/{revue}', [
+    'as'=>'panier-delete',
+    'uses'=>'PanierController@delete'
+    ]);
+    
+    Route::get('/panier/trash', [
+    'as'=>'panier-trash',
+    'uses'=>'PanierController@trash'
+    ]);
+    
+    Route::get('/panier/update/{revue}/{quantite?}', [
+    'as'=>'panier-update',
+    'uses'=>'PanierController@update'
+    ]);
+
+     Route::get('/panier/livraison', ['as' => 'panier-adresse-livraison', function(){ 
+        return view('Paniers.formulaireCommande');         
+    }]);
+    
+    /*------------------------
+     *  Transactions Paypal
+     --------------------------*/
+    
+    // Envoyez notre commande à PayPal
+    Route::get('payment', array(
+            'as' => 'payment',
+            'uses' => 'PaypalController@postPayment',
+    ));
+    
+    // Après avoir effectué le paiement Paypal on rédirectionne vers cette route-ci
+    Route::get('payment/status', array(
+            'as' => 'payment.status',
+            'uses' => 'PaypalController@getPaymentStatus',
+    ));
+    
+        // Après avoir effectué le paiement Paypal pour l'abonnement on rédirectionne vers cette route-ci
+    Route::get('payment-abonnement/status', array(
+            'as' => 'payment.abonnement.status',
+            'uses' => 'PaypalController@getPaymentAbonnementStatus',
+    )); 
+    
+    //Requête paypal pour la cotisation (abonnement revue)
+     Route::get('payment-abonnement/{prix}', array(
+            'as' => 'paymentAbonnement',
+            'uses' => 'PaypalController@postPaymentAbonnement',
+    ));
+     
+
+    
+    /*----------------------------
+     * Abonnement Revue
+     -------------------------------*/
+   //S'abonner à la revue (Chargement du formulaire de demande d'abonnement)    
+  /*  Route::get('/revues/demande-abonnement', [
+        'as'=>'demande-abonnement-revues',
+        'uses'=>'RevueController@demandeAbonnement'
+    ]);*/
+    
+    //Envoie de l'email pour s'abonner à la revue
+    Route::post('/revues/abonnement', [
+        'as'=>'abonnement-revues',
+        'uses'=>'RevueController@abonnement'
+    ]);
+
 
    /*La liste de revues*/
     Route::get('/revues', [
@@ -97,28 +163,4 @@ Route::post('/publier/proposearticle',[
     'as'=>'detailAccueil',
     'uses'=>'AccueilController@detail'
 ]);*/
-// Fabian**************************************************************************
-//Pour formulaire de proposeArticle
-/*Route::get('/publier/proposearticle',[
-    'as'=>'ProposeArticle',
-    'uses'=>'ArticleController@ProposeArticle'
-]);
-Route::post('/publier/proposearticle',[
-    'as'=>'ProposeArticle',
-    'uses'=>'ArticleController@post'
-]);*/
-//route::post('article','ArticleController@post');
-//Route::get(' proposearticle', ['as' => 'ProposeArticle', function(){
-//    return view('ProposeArticle');
-//}]);
-//Route::get('proposearticle', ['as' => 'ProposeArticle', function(){
-//    return view('Articles.FormulairePropose');
-//}]);
-//Route::get('/publier/proposearticle','ArticleController@ProposeArticle');
-//Route::post('proposearticle','ArticleController@post');
-//Pour l'envois du formulaire par mail
 
-
-/*Route::auth();
-
-*/

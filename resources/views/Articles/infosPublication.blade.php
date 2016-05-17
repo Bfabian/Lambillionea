@@ -104,7 +104,7 @@
                 
                 <div class='col s4 center' style='margin-top: 0.5rem'>
                     <div class='col s12'>
-                        <a href="{{route('ProposeArticle')}}" class="btn btn-large btn-bleu modal-trigger col s10">Proposer un article</a>
+                        <a href="#modal2" class="btn btn-large btn-bleu modal-trigger col s10">Proposer un article</a>
                     </div>
                     <div class='col s12'>
                         <a href="#modal1" class="btn btn-large btn-bleu modal-trigger col s8">Abonnez-vous</a>
@@ -116,25 +116,6 @@
 </div>
      
 
-
-@push('javascript')
-<script>
-
-    $(document).ready(function(){
-
-       // $('.modal-trigger').leanModal();
-
-       // $('#header').load('modals.html');
-
-        $('.collapsible-header').click(function(){
-            $('.collapsible-header .active').removeClass('active');
-            $(this).addClass('active');
-        });
-
-        $('.collapsible-header .active').click(function(){
-            $(this).removeClass('active');
-        });
-    });
-</script>
-@endpush
 @endsection
+
+

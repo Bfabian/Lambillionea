@@ -21,7 +21,7 @@
                                 <p>Année {{ $revue->annee}},  N°{{ $revue->fascicule }}, Tome : {{ $revue->tome }}</p>
                                 <span class="card-price grey-text text-lighten-1">50€</span>
                                 <div class="card-action">
-                                    <a href="#">AJOUTER AU PANIER</a>
+                                    <a href="{{route('panier-add',['revue'=>$revue->id]) }}">AJOUTER AU PANIER</a>
                                     <!--id pour la requete AJAX-->
                                     <a data-id="{{ $revue->id }}" class="modal-trigger right detailRevue" href="#revue01">EN SAVOIR +</a>
                                 </div>
@@ -48,14 +48,11 @@
         @push('javascript')
        
         <script>      
-              /* 
-    
-                     $.ajaxSetup({
-                        headers: { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
-                        }); 
-                */              
-               
-
+        /* 
+            $.ajaxSetup({
+                headers: { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
+            }); 
+        */              
 
    //Transaction ajax pour charger le détail de la revue dans la fenêtre modale
    $('body').on('click','.detailRevue',function(){
@@ -106,7 +103,6 @@
         //On vide le champ recherche
         $('#search').val('');
      });
-  
     
     $("#search").keyup(function(){
         
@@ -145,11 +141,12 @@
            });
         
         } 
-        
-        
+               
     });
     
-    //Transaction ajax pour affficher les revues en fonction de la recherche effectuée (par article)
+    /*----------------------------------------------------------------------------------------------
+    * Transaction ajax pour affficher les revues en fonction de la recherche effectuée (par article)
+     -----------------------------------------------------------------------------------------------*/
     $('body').on('click','#listeArticles .collection-item',function(){
     
         //On vide la liste de suggestions de la recherche
@@ -171,7 +168,9 @@
         });
         
     });
-    //Transaction ajax pour affficher les revues en fonction de la recherche effectuée (par tag)
+    /*----------------------------------------------------------------------------------------
+    * Transaction ajax pour affficher les revues en fonction de la recherche effectuée (par tag)
+     -----------------------------------------------------------------------------------------*/
     $('body').on('click','#listeTags .collection-item',function(){
     
         //On vide la liste de suggestions de la recherche
@@ -190,7 +189,6 @@
                  //   $('#detail').css('backgroundColor','yellow');
               //  }
 
-
             },
             error: function () {
                 alert('Erreur !');
@@ -198,14 +196,11 @@
         });
         
     });
-    
-   
- 
+
         </script>
         @endpush
 
-                <aside  class="col s4">
-                    
+                <aside  class="col s4">                  
                     <nav>
                         <div class="nav-wrapper">
                             <form>

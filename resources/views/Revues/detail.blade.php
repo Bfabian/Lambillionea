@@ -10,7 +10,7 @@
                                 <p>Année : {{ $revue->annee}}</p>
                                 <span class="card-price grey-text text-lighten-1">50€</span>
                                 <div>
-                                    <a href="#">AJOUTER AU PANIER</a>
+                                    <a href="{{route('panier-add',['revue'=>$revue->id]) }}">AJOUTER AU PANIER</a>
                                 </div>
                                 
                                 <div class='test'> </div>

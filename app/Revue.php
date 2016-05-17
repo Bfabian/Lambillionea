@@ -14,5 +14,10 @@ class Revue extends Model{
         return $this->belongsToMany('App\Article'); 
     }
     
+    //Retourne la liste de paniers par revue
+     public function listePaniers(){ 
+        return $this->belongsToMany('App\Panier', 'revue_panier'); /*Les paniers par revue*/ 
+    } 
+    
 
 }

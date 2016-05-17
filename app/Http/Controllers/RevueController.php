@@ -7,8 +7,11 @@ use App\Revue;
 use App\Article;
 use App\Tag;
 use DB;
+use Mail;
 
 use Illuminate\Http\Request;
+
+use Validator;
 
 
 //Action pour afficher la liste de toutes les revues 
@@ -91,6 +94,66 @@ class RevueController extends Controller{
          return \Response::json(['articles'=>$articles, 'tags'=>$tags ]);
 
     }
+    
+    //Action pour afficher le formulaire de demander pour s'abonnner à la revue
+    
+    public function abonnement(Request $request){
+        //Contraintes de validation
+        $validator = Validator::make($request->all(),[
+            'nom'=>'required',
+            'prenom'=>'required|max:10',
+        ]);
+        //Si l'une des contraintes n'est pas respectée on rédirige à nouveau vers la page du formulaire et on retourne les erreurs ainsi que l'ancien contenu des champs
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        
+     /*    mail::send('Revues.mail',array(
+            'nom' => $request->get('nom'),
+            'prenom' => $request->get('prenom'),
+            'email' => $request->get('email'),
+            'adresse' => $request->get('adresse'),
+            'ville' => $request->get('ville'),
+            'pays' => $request->get('pays')
+
+        ) ,function ($message){
+            $message->subject("Demande d'abonnement");
+            $message->to('rdily1986@gmail.com');
+
+        });*/
+        
+        $pays = $request->input('pays');
+        
+        $UE = array('Allemagne','Autriche', 'Bulgarie', 'Chypre', 'Croatie', 'Danemark', 'Espagne', 'Estonie', 'Finlande', 'France', 'Grèce', 'Hongrie', 'Irlande', 'Italie', 'Lettonie', 'Lituanie', 'Luxembourg', 'Malte', 'Pays-Bas', 'Pologne', 'Portugal', 'République tchèque', 'Roumanie', 'Royaume-Uni', 'Slovaquie', 'Slovénie', 'Suède');
+        
+        if($pays  === "Belgique"){
+            $prix = number_format(55,2);
+        }elseif (in_array($pays, $UE)) { 
+            $prix = number_format(65,2);
+        }else{
+            $prix = number_format(75,2);
+        }
+        
+       // On le rédirige vers la page d'accueil et on envoie un message flash de confirmation       
+     //return view('Template.layout')->with(['status'=>'Nous avons bien enregistré vos coordonnées !', 'prix'=>$prix, 'pays'=>$pays]);
+       //  return \Response::json([ 'prix'=>$prix, 'pays'=>$pays ]);
+      // return view('Revues.demandePaiementAbonnement')->with(['prix'=>$prix, 'pays'=>$pays]);
+       
+       //return back()->with(['prix'=>$prix, 'pays'=>$pays]);
+       // var_dump($prix); die;
+
+      //return back()->with(['prix'=>$prix, 'pays'=>$pays]);
+        
+    //return \Response::json(['prix'=>$prix, 'pays'=>$pays ]);
+        
+        \Session::flash('submitted', true);
+        
+        return redirect()->back()->with(['prix'=>$prix]);
+    
+   //   return \Response::json(['prix'=>$prix, 'pays'=>$pays ]);
+    
+    }
+    
 
     
 }

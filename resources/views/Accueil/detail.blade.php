@@ -10,7 +10,9 @@
       <div class="container">
         <div class="parallax-logo"><img src="media/logo.png" alt="logo"></div>
         <h5 class="brown-text text-darken-1">L'Union des Entomologistes belges asbl</h5>
+  
         <div class="row">
+           
             <p class="header col s12 m10 l6 light">Envie de participer à la grande aventure du monde des insectes ? N'attendez plus, rejoignez notre asbl et bénéficiez de la revue Lambillionea.</p>
         </div>
         <div class="row">

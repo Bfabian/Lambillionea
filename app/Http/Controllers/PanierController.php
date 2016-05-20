@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Revue;
 
 use Illuminate\Http\Request;
+use Validator;
 
 use App\Http\Requests;
 
@@ -115,5 +116,34 @@ class PanierController extends Controller{
         return $total;
 
     }
+    
+    //Adresse de livraison
+    
+        public function livraison(Request $request){
+
+        //Si la variable de session abonnement n'existe pas on la crée avec un array contenant les données reçues en post
+        if(!\Session::has('client')){
+            
+            \Session::put('client', array( 
+            'civilite' => $request->get('civilite'),    
+            'nom' => $request->get('nom'),
+            'prenom' => $request->get('prenom'),
+            'rue' => $request->get('rue'),
+            'cp' => $request->get('cp'),
+            'ville' => $request->get('ville'),
+            'pays' => $request->get('pays')));
+        } 
+        
+        $client = \Session::get('client');    
+        
+         $panier = \Session::get('panier');
+         $total = $this->total();
+        //var_dump($client);
+        
+     return view('Paniers.detailCommande', compact('panier', 'total', 'client'));
+     
+    }
+    
+
 
 }

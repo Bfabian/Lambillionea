@@ -7,14 +7,54 @@
 |
 */
 
+/*------------------------------------------
+ * ROUTES BACKOFFICE
+ -----------------------------------------------*/
 Route::group(['middleware'=>['web']], function(){
     
     //Groupe des routes pour la partie admin
     Route::group(['prefix'=>'admin'], function(){
+        Route::get('/',function(){
+            return view('layouts.app');
+        });
+        Route::auth();
+
+            Route::group(['middleware' => 'auth'], function () {
+                
+                Route::get('/home', 'HomeController@index');
+                
+                Route::get('/evenements', [
+                'as'=>'listeEvenements',
+                'uses'=>'HomeController@listeEvenements'
+                ]);
+
+                Route::get('/add/evenement', [
+                    'as'=>'ajouterEvenement',
+                    'uses'=>'HomeController@addEvenement'
+                ]);
+
+                Route::post('/valid/evenement', [
+                    'as'=>'valid',
+                    'uses'=>'HomeController@validEvenement'
+                ]);
+                
+                Route::match(['get','post'],'/update/evenement/{id}', [
+                    'as'=>'updateEvenement',
+                    'uses'=>'HomeController@updateEvenement'
+                ]);
+                
+                Route::get('/delete/evenement/{id}', [
+                    'as'=>'deleteEvenement',
+                    'uses'=>'HomeController@deleteEvenement'
+                ]);
+
+            });        
         
     });
  
 });
+
+
     /*-----------------------------------------------------
      * Panier d'achats
      -----------------------------------------------------*/
@@ -47,9 +87,29 @@ Route::group(['middleware'=>['web']], function(){
     'uses'=>'PanierController@update'
     ]);
 
-     Route::get('/panier/livraison', ['as' => 'panier-adresse-livraison', function(){ 
-        return view('Paniers.formulaireCommande');         
+     Route::get('/panier/livraison', 
+    ['as' => 'panier-adresse-livraison', function(){ 
+         //Si le panier est vide on redirige vers l'accueil
+         if(count(\Session::get('panier')) <= 0){
+            return redirect()->route('accueil');
+            //Siinon on affiche le formulaire pour l'adresse de livraison
+        }else{
+            return view('Paniers.formulaireCommande');  
+        }
+               
     }]);
+    
+    //On reçoit les données du formulaire pour l'adresse de livraison lors de la commande de revue(s)
+    Route::match(['get','post'],'/panier/formulaire', [
+        'as'=>'livraison',
+        'uses'=>'PanierController@livraison'
+    ]);
+    
+    //Route de test (tutoriel)
+ /*   Route::get('/panier/order-detail', [
+    'as'=>'order-detail',
+    'uses'=>'PanierController@orderDetail'
+    ]);*/
     
     /*------------------------
      *  Transactions Paypal
@@ -78,19 +138,15 @@ Route::group(['middleware'=>['web']], function(){
             'as' => 'paymentAbonnement',
             'uses' => 'PaypalController@postPaymentAbonnement',
     ));
-     
+
 
     
     /*----------------------------
      * Abonnement Revue
      -------------------------------*/
-   //S'abonner à la revue (Chargement du formulaire de demande d'abonnement)    
-  /*  Route::get('/revues/demande-abonnement', [
-        'as'=>'demande-abonnement-revues',
-        'uses'=>'RevueController@demandeAbonnement'
-    ]);*/
+
     
-    //Envoie de l'email pour s'abonner à la revue
+    //On reçoit les données du formulaire pour s'abonner à la revue
     Route::post('/revues/abonnement', [
         'as'=>'abonnement-revues',
         'uses'=>'RevueController@abonnement'
@@ -144,6 +200,17 @@ Route::group(['middleware'=>['web']], function(){
     Route::get('/{accueil?}', ['as' => 'accueil', function(){ 
         return view('Accueil.detail');         
     }]);
+    
+    
+
+// Fabian**************************************************************************
+//Pour formulaire de proposeArticle
+
+Route::post('/publier/proposearticle',[
+    'as'=>'ProposeArticle',
+    'uses'=>'ArticleController@post'
+]);
+/*****************************************************/
     
  /*---------------------------------*/   
   /*Route::get('/detailRevue', [

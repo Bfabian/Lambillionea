@@ -101,26 +101,32 @@ class RevueController extends Controller{
         //Contraintes de validation
         $validator = Validator::make($request->all(),[
             'nom'=>'required',
-            'prenom'=>'required|max:10',
+            'prenom'=>'required',
+            'email'=>'required|email',
+            'adresse'=>'required',
+            'ville'=>'required',
+            'pays'=>'required',
         ]);
         //Si l'une des contraintes n'est pas respectée on rédirige à nouveau vers la page du formulaire et on retourne les erreurs ainsi que l'ancien contenu des champs
         if($validator->fails()){
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        
-     /*    mail::send('Revues.mail',array(
+        //Si la variable de session abonnement n'existe pas on la crée avec un array contenant les données reçues en post
+        if(!\Session::has('abonnement')){
+            
+            \Session::put('abonnement', array( 
             'nom' => $request->get('nom'),
             'prenom' => $request->get('prenom'),
             'email' => $request->get('email'),
             'adresse' => $request->get('adresse'),
             'ville' => $request->get('ville'),
-            'pays' => $request->get('pays')
-
-        ) ,function ($message){
-            $message->subject("Demande d'abonnement");
-            $message->to('rdily1986@gmail.com');
-
-        });*/
+            'pays' => $request->get('pays')));
+        } 
+        
+        //$abonnement = \Session::get('abonnement');
+        
+          //var_dump($abonnement);
+        
         
         $pays = $request->input('pays');
         
@@ -134,26 +140,16 @@ class RevueController extends Controller{
             $prix = number_format(75,2);
         }
         
-       // On le rédirige vers la page d'accueil et on envoie un message flash de confirmation       
-     //return view('Template.layout')->with(['status'=>'Nous avons bien enregistré vos coordonnées !', 'prix'=>$prix, 'pays'=>$pays]);
-       //  return \Response::json([ 'prix'=>$prix, 'pays'=>$pays ]);
-      // return view('Revues.demandePaiementAbonnement')->with(['prix'=>$prix, 'pays'=>$pays]);
-       
-       //return back()->with(['prix'=>$prix, 'pays'=>$pays]);
-       // var_dump($prix); die;
+        /*RETOUR A UNE VUE*/
+       //return view('Revues.demandePaiementAbonnement')->with(['prix'=>$prix, 'pays'=>$pays]);
 
-      //return back()->with(['prix'=>$prix, 'pays'=>$pays]);
         
-    //return \Response::json(['prix'=>$prix, 'pays'=>$pays ]);
+     \Session::flash('submitted', true);
         
-        \Session::flash('submitted', true);
-        
-        return redirect()->back()->with(['prix'=>$prix]);
-    
-   //   return \Response::json(['prix'=>$prix, 'pays'=>$pays ]);
-    
+     return redirect()->back()->with('prix',$prix);
+
     }
-    
+
 
     
 }

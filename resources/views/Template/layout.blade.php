@@ -47,7 +47,7 @@
         
         <!--Include de la boite modale pour le formulaire d'abonnement à la revue (Doit être disponible partout sur le site)-->
          @include('Revues.formulaireAbonnement')
-         @if(isset($prix)) {{ $prix }} @endif
+  
 
          <!--S'il existe un message de session appelé message alors on va inclure la vue message-->
          @if(\Session::has('message'))

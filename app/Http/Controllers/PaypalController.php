@@ -19,6 +19,9 @@ use PayPal\Api\PaymentExecution;
 use PayPal\Api\Transaction;
 use DateTime;
 
+//Chargement de dépendances pour l'envoie du mail après abonnement à la revue
+use Mail;
+
 
 //Chargement des modèles
 use App\Panier;
@@ -131,8 +134,7 @@ class PaypalController extends BaseController{
     public function getPaymentStatus(){
         // Get the payment ID before session clear
 		$payment_id = \Session::get('paypal_payment_id');
-		// clear the session payment ID
-		\Session::forget('paypal_payment_id');
+		
 		$payerId = \Request::get('PayerID');
 		$token = \Request::get('token');
 		//if (empty(\Input::get('PayerID')) || empty(\Input::get('token'))) {
@@ -154,7 +156,28 @@ class PaypalController extends BaseController{
                  
                     //On fait appel à la fonction saveOrder pour faire l'insert
                     $this->saveOrder(\Session::get('panier'));
+                    
+                //On envoie un email à l'admin pour lui informer de la nouvelle commande    
+                    $client = \Session::get('client');
+                    $panier = \Session::get('panier');
+                    $payment_id = \Session::get('paypal_payment_id');
+                    
+                     $total = 0;
+                    //On parcourt tous les items du panier et on additionne les sous-totaux à la variable $total
+                    foreach($panier as $item){
+                        $total += 50 * $item->quantite; //Le prix* la quantite pour chaque item du panier
+                    }
+          
+                     mail::send('Paniers.mail', compact('panier','client','total','payment_id'),function ($message){
+                    $message->subject("Nouvelle commande");
+                    $message->to('rdily1986@gmail.com');
+
+                }); 
+                   // clear the session payment ID
+                        \Session::forget('paypal_payment_id'); 
+                    //On vide les variables de session panier et client
 			\Session::forget('panier');
+                        \Session::forget('client');
                         
 			return \Redirect::route('accueil')
 				->with('message', 'Transaction effectuée avec succès');
@@ -301,6 +324,27 @@ class PaypalController extends BaseController{
 		$result = $payment->execute($execution, $this->_api_context);
 		//echo '<pre>';print_r($result);echo '</pre>';exit; // DEBUG RESULT, remove it later
 		if ($result->getState() == 'approved') { 
+                  
+                    $abonnement = \Session::get('abonnement');
+                    
+          
+                     mail::send('Revues.mail', array(
+                        'nom' => $abonnement['nom'],
+                        'prenom' => $abonnement['prenom'],
+                        'email' => $abonnement['email'],
+                        'adresse' => $abonnement['adresse'],
+                        'ville' => $abonnement['ville'],
+                        'pays' => $abonnement['pays'],
+                        'numeroTransaction'=>$payerId
+
+                    ),function ($message){
+                    $message->subject("Demande d'abonnement");
+                    $message->to('rdily1986@gmail.com');
+
+                }); 
+                      //On vide la variable de session abonnement
+			\Session::forget('abonnement');
+                        
                     return \Redirect::route('accueil')
 				->with('message', 'Transaction effectuée avec succès. Félicitations vous êtes désormais abonné à notre revue.');
 		}

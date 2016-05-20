@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Blog extends Model{
     //Ratacher le modèle à une table particulière
     protected $table = 'blogs';
+    
+    public $timestamps = false; 
 
      /**
      * The attributes that are mass assignable.
@@ -14,7 +16,7 @@ class Blog extends Model{
      * @var array
      */
     protected $fillable = [
-        'titre', 'texte','tri','image',
+        'titre', 'description','dateEvent','lieu','adresse','email','telephone','heureDebut','heureFin'
     ];
     
 

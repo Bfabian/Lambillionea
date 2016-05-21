@@ -10,12 +10,12 @@
 /*------------------------------------------
  * ROUTES BACKOFFICE
  -----------------------------------------------*/
-Route::group(['middleware'=>['web']], function(){
+
     
     //Groupe des routes pour la partie admin
     Route::group(['prefix'=>'admin'], function(){
         Route::get('/',function(){
-            return view('layouts.app');
+            return view('Admin.home');
         });
         Route::auth();
 
@@ -23,6 +23,7 @@ Route::group(['middleware'=>['web']], function(){
                 
                 Route::get('/home', 'HomeController@index');
                 
+                //Gestion des évènements
                 Route::get('/evenements', [
                 'as'=>'listeEvenements',
                 'uses'=>'HomeController@listeEvenements'
@@ -47,12 +48,40 @@ Route::group(['middleware'=>['web']], function(){
                     'as'=>'deleteEvenement',
                     'uses'=>'HomeController@deleteEvenement'
                 ]);
+                
+                //Gestion d'associations partenaires
+                
+                Route::get('/associations-partenaires', [
+                'as'=>'listePartenaires',
+                'uses'=>'HomeController@listePartenaires'
+                ]);
+                
+                Route::get('/add/association-partenaire', [
+                    'as'=>'ajouterPartenaire',
+                    'uses'=>'HomeController@addPartenaire'
+                ]);
+                
+                Route::post('/create/association-partenaire', [
+                    'as'=>'createPartenaire',
+                    'uses'=>'HomeController@createPartenaire'
+                ]);
+                
+                Route::match(['get','post'],'/update/association-partenaire/{id}', [
+                    'as'=>'updatePartenaire',
+                    'uses'=>'HomeController@updatePartenaire'
+                ]);
+                
+                Route::get('/delete/association-partenaire/{id}', [
+                    'as'=>'deletePartenaire',
+                    'uses'=>'HomeController@deletePartenaire'
+                ]);
+                
 
             });        
         
     });
  
-});
+
 
 
     /*-----------------------------------------------------

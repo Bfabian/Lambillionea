@@ -4,16 +4,13 @@
 
 <!--Lister les erreurs éventuelles-->
 @if (count($errors) > 0)
-    <div class="alert alert-danger">
+                    
         <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
+           @foreach ($errors->all() as $error)
+               <li>{{ $error }}</li>
             @endforeach
         </ul>
-    </div>
-@elseif(session('status'))
-<h1>{{ session('status') }}</h1>
-@endif
+ @endif
 
 
     <form class="form-horizontal" action="{{ isset($evenement->id) ? route('updateEvenement',['id'=>$evenement->id]) : route('valid') }}" method="post">

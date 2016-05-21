@@ -3,11 +3,7 @@
 @section('content')
 
         <div class="col-md-12">
-            
-             @if(\Session::has('success'))
-            <div class='alert alert-success'>{{ session('success') }}</div>
-            @endif
-  
+
                 <a class="btn btn-warning" href="{{url('admin/add/evenement') }}">
                     <span class="glyphicon glyphicon-upload"></span> Ajouter un événement
                 </a>

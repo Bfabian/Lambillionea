@@ -25,8 +25,8 @@
                             <span>Civilité</span>
                             <select id="civilite" name="civilite" style="display:block">
                                 <option value="Monsieur">Monsieur</option>
-                                <option value="Monsieur">Madame</option>
-                                <option value="Monsieur">Mademoiselle</option>
+                                <option value="Madame">Madame</option>
+                                <option value="Mademoiselle">Mademoiselle</option>
                             </select>
                         </div>
                         <div class="input-field"><label for="nom">Nom</label>
@@ -34,6 +34,9 @@
                         </div>
                         <div class="input-field"><label for="rue">Prénom</label>
                             <input type="text" id="prenom" class="validate" required="required" name="prenom" value="{{ old('prenom') }}" />
+                        </div>
+                        <div class="input-field"><label for="email">Email</label>
+                            <input type="email" id="email" class="validate" required="required" name="email" value="{{ old('email') }}" />
                         </div>
                         <div class="input-field"><label for="rue">Rue et numero</label>
                             <input type="text" id="rue" class="validate" required="required" name="rue" value="{{ old('rue') }}" />

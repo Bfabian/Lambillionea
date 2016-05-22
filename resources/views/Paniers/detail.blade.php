@@ -89,19 +89,6 @@
      //Gestion des quantités du panier
 
     
-    /*$('.btn-update-item').on('click', function(e){
-        e.preventDefault();
-        
-        var id = $(this).data('id');
-        var href = $(this).data('href');
-        var quantite = $('#revue_'+ id).val();
-        
-        window.location.href = href + "/" + quantite;
-    });*/
-    
-    
-    //Test Select
-    
     $('.btn-update-item').on('change', function(e){
         e.preventDefault();
        
@@ -109,34 +96,12 @@
         var href = $(this).data('href');
         var quantite = $('#revue_'+ id).val();
         
-     //   var quantite = $('.btn-update-item').options[$('.btn-update-item').selectedIndex].val();
-       // alert(quantite);
-         
-      //  parseInt($('#revue_'+ id).options[$('#revue_'+ id).selectedIndex].text);
-      
-     //var valeurselectionnee = $('.btn-update-item').options[$('.btn-update-item').selectedIndex].val();
+
 
       
         window.location.href = href + "/" + quantite;
     });
     
-        /*  function calcul(){
-                var liste1 = document.getElementById("select1");
-                var texte1 = parseInt(liste1.options[liste1.selectedIndex].text);
 
-                var liste2 = document.getElementById("select2");
-                var texte2 = parseInt(liste2.options[liste2.selectedIndex].text);
-              
-                 var total = texte1+texte2;
-                 document.getElementById("total2").value = total;                         
-            };
-            
-            document.getElementById('select1').onchange = function(){               
-                calcul();                
-            };
-            
-             document.getElementById('select2').onchange = function(){
-                calcul();
-            };*/
 </script>
   @endpush

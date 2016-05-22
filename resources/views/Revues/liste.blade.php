@@ -48,11 +48,6 @@
         @push('javascript')
        
         <script>      
-        /* 
-            $.ajaxSetup({
-                headers: { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
-            }); 
-        */              
 
    //Transaction ajax pour charger le détail de la revue dans la fenêtre modale
    $('body').on('click','.detailRevue',function(){
@@ -135,9 +130,9 @@
                    }
 
                },
-               error: function () {
+             /*  error: function () {
                    alert('Erreur !');
-               }
+               }*/
            });
         
         } 
@@ -150,6 +145,8 @@
     $('body').on('click','#listeArticles .collection-item',function(){
     
         //On vide la liste de suggestions de la recherche
+         $('#listeArticles').html('');
+         $('#listeTags').html('');
         
         var articleID = $(this).attr('data-id');
         
@@ -174,6 +171,8 @@
     $('body').on('click','#listeTags .collection-item',function(){
     
         //On vide la liste de suggestions de la recherche
+         $('#listeArticles').html('');
+         $('#listeTags').html('');
         
         var tagID = $(this).attr('data-id');
         
@@ -184,10 +183,6 @@
             success: function (reponsePHP) {
      
                 $('#liste').html(reponsePHP).hide().fadeIn(600);
-                
-                //if($('#listeArticles .article').indexOf(search) >= 0 ){
-                 //   $('#detail').css('backgroundColor','yellow');
-              //  }
 
             },
             error: function () {
@@ -196,6 +191,16 @@
         });
         
     });
+    
+    /*
+    * Vider la liste de suggestions lorsqu'on clique sur la petite croix
+     */
+     $('body').on('click','#close',function(){
+
+         $('#listeArticles').html('');
+         $('#listeTags').html('');
+         
+     });
 
         </script>
         @endpush
@@ -207,7 +212,7 @@
                                 <div class="input-field white">
                                     <input id="search" type="search" placeholder="Recherche par tag ou par article" required>
                                     <label for="search"><i class="material-icons grey-text text-darken-3">search</i></label>
-                                    <i class="material-icons">close</i>
+                                    <i id="close" class="material-icons">close</i>
                                 </div>
                             </form>
                             
@@ -275,7 +280,7 @@
                     </form>
                     
                 </aside>
-             
+                <!--Pagination-->
                 <div class="col s12">
                    
                   

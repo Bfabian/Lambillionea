@@ -146,23 +146,9 @@
                     <p>Afin de compléter la procédure d'abonnement à notre revue, nous vous invitons de verser une première cotisation 
                         en versant la somme de : {{$prix = session('prix') }} 
                         
-                        <a href="{{ route('paymentAbonnement',['prix'=>$prix]) }}">CONTINUER AVEC PAYPAL</a>
+                        <a href="{{ route('paymentAbonnement',['prix'=>$prix]) }}"><img src="{{ asset('media/paypal.png') }}" alt="paypal"></a>
                     <br></p>
                     
-                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-                        <input type="hidden" name="cmd" value="_xclick">
-                        <input type="hidden" name="business" value="accounts@freelanceswitch.com">
-                        <input type="hidden" name="item_name" value="Abonnement à la revue Lambillionea">
-                        <input type="hidden" name="item_number" value="1">
-                        <input type="hidden" name="amount" value="{{$prix = session('prix') }}">
-                        <input type="hidden" name="no_shipping" value="0">
-                        <input type="hidden" name="no_note" value="1">
-                        <input type="hidden" name="currency_code" value="EUR">
-                        <input type="hidden" name="lc" value="AU">
-                        <input type="hidden" name="bn" value="PP-BuyNowBF">
-                        <input type="image" src="https://www.paypal.com/en_AU/i/btn/btn_buynow_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online.">
-                        <img alt="" border="0" src="https://www.paypal.com/en_AU/i/scr/pixel.gif" width="1" height="1">
-                    </form>
                 </div>
                 <div class="col s6">
                     <h5>Paiement par virement</h5>

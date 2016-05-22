@@ -122,8 +122,7 @@ class RevueController extends Controller{
             'pays' => $request->get('pays')));
 
         
-        //$abonnement = \Session::get('abonnement');
-        
+        //$abonnement = \Session::get('abonnement');       
           //var_dump($abonnement);
         
         

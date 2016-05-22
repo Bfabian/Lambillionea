@@ -168,11 +168,23 @@ class PaypalController extends BaseController{
                         $total += 50 * $item->quantite; //Le prix* la quantite pour chaque item du panier
                     }
           
-                     mail::send('Paniers.mail', compact('panier','client','total','numeroTransaction'),function ($message){
+                    Mail::send('Paniers.mail', compact('panier','client','total','numeroTransaction'),function ($message){
                     $message->subject("Nouvelle commande");
                     $message->to('rdily1986@gmail.com');
 
                 }); 
+                    //Mail de confirmation au client  
+                
+                    Mail::later(2, 'Paniers.mailClient', compact('panier','client','total','numeroTransaction'), function ($message) {
+                     $message->subject("Confirmation de votre commande");
+                    
+                    $client = \Session::get('client');
+                    $emailClient = $client['email'];
+                    $message->to($emailClient);
+                    });
+
+                                           
+                            
                    // clear the session payment ID
                         \Session::forget('paypal_payment_id'); 
                     //On vide les variables de session panier et client
@@ -180,7 +192,7 @@ class PaypalController extends BaseController{
                         \Session::forget('client');
                         
 			return \Redirect::route('accueil')
-				->with('message', 'Transaction effectuée avec succès');
+				->with('message', 'Transaction effectuée avec succès ! Un mail de confirmation vous sera adressé dans quelques instants.');
 		}
 		return \Redirect::route('accueil')
 			->with('message', 'La transaction a été annulée');
@@ -327,7 +339,7 @@ class PaypalController extends BaseController{
                     $abonnement = \Session::get('abonnement');
                     $payment_id = \Session::get('paypal_payment_id');
           
-                     mail::send('Revues.mail', array(
+                     Mail::send('Revues.mail', array(
                         'nom' => $abonnement['nom'],
                         'prenom' => $abonnement['prenom'],
                         'email' => $abonnement['email'],

@@ -1,27 +1,26 @@
-# Laravel PHP Framework
+# Projet développé avec Laravel PHP Framework version 5.2
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+L'objectif du projet consiste à effectuer une refonte totale (design et développement) du site http://lambillionea.haisoft.be/ en tenant compte des critères suivants :
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+•	Permettre la vente de la revue éditée par l’ASBL via l’intégration d’un panier d’achats et de Paypal comme moyen de paiement.
+•	Permettre à toute personne intéressée d’effectuer une demande d’adhésion à l’ASBL en remplissant un formulaire en ligne et moyennant le paiement d’une cotisation soit via Paypal soit via un virement.
+•	Permettre aux utilisateurs d’effectuer une proposition d’article pour la revue afin de devenir auteurs.
+•	Présenter sous forme de blog les évènements à venir au sein de l’ASBL.
+•	Le contenu doit être disponible en deux langues.
+•	Backoffice pour la gestion des articles du blog et des liens des associations partenaires.
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+## Client
 
-## Official Documentation
+L’asbl Lambillionea est un groupe d’entomologistes Belges ayant pour but l'étude désintéressée de l'entomologie générale
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+## Contributeurs
 
-## Contributing
+Dileydi RAMOS PEREZ,
+Fabian BARNICH
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+## Choix techniques concernanat les services
 
-## Security Vulnerabilities
+Paiement par Paypal : [rest-api-sdk-php] (https://packagist.org/packages/paypal/rest-api-sdk-php)
+Prestataire d'emailing : [Mailgun] (https://mailgun.com/sessions/new)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+## Lien vers le site en ligne

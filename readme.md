@@ -15,8 +15,7 @@ L’asbl Lambillionea est un groupe d’entomologistes Belges ayant pour but l'�
 
 ## Contributeurs
 
-Dileydi RAMOS PEREZ,
-Fabian BARNICH
+[Dileydi RAMOS PEREZ] (https://github.com/dily86) et [Fabian BARNICH] (https://github.com/Bfabian)
 
 ## Choix techniques concernanat les services
 

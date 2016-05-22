@@ -15,11 +15,11 @@
     //Groupe des routes pour la partie admin
     Route::group(['prefix'=>'admin'], function(){
         Route::get('/',function(){
-            return view('Admin.home');
+            return view('layouts.app');
         });
         Route::auth();
 
-            Route::group(['middleware' => 'auth'], function () {
+            Route::group(['middleware' => 'auth'], function() {
                 
                 Route::get('/home', 'HomeController@index');
                 

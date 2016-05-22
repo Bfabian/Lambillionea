@@ -111,8 +111,7 @@ class RevueController extends Controller{
         if($validator->fails()){
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        //Si la variable de session abonnement n'existe pas on la crée avec un array contenant les données reçues en post
-        if(!\Session::has('abonnement')){
+        //On crée la variable de session abonnement avec un array contenant les données reçues en post
             
             \Session::put('abonnement', array( 
             'nom' => $request->get('nom'),
@@ -121,7 +120,7 @@ class RevueController extends Controller{
             'adresse' => $request->get('adresse'),
             'ville' => $request->get('ville'),
             'pays' => $request->get('pays')));
-        } 
+
         
         //$abonnement = \Session::get('abonnement');
         

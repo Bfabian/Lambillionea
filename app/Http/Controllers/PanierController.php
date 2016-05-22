@@ -121,8 +121,8 @@ class PanierController extends Controller{
     
         public function livraison(Request $request){
 
-        //Si la variable de session abonnement n'existe pas on la crée avec un array contenant les données reçues en post
-        if(!\Session::has('client')){
+        //On crée la variable de session abonnement avec un array contenant les données reçues en post
+        //if(!\Session::has('client')){
             
             \Session::put('client', array( 
             'civilite' => $request->get('civilite'),    
@@ -132,7 +132,7 @@ class PanierController extends Controller{
             'cp' => $request->get('cp'),
             'ville' => $request->get('ville'),
             'pays' => $request->get('pays')));
-        } 
+      //  } 
         
         $client = \Session::get('client');    
         

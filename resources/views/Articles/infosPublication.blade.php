@@ -114,7 +114,25 @@
         </div>
     </div>
 </div>
-     
+
+@push('javascript')
+
+<script>
+
+    $(document).ready(function(){
+
+        $('.collapsible-header').click(function(){
+            $('.collapsible-header .active').removeClass('active');
+            $(this).addClass('active');
+        });
+
+        $('.collapsible-header .active').click(function(){
+            $(this).removeClass('active');
+        });
+    });
+</script>
+
+@endpush
 
 @endsection
 

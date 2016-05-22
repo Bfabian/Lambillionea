@@ -9,6 +9,7 @@
     <div class="section no-pad-bot">
       <div class="container">
         <div class="parallax-logo"><img src="media/logo.png" alt="logo"></div>
+
         <h5 class="brown-text text-darken-1">L'Union des Entomologistes belges asbl</h5>
   
         <div class="row">
@@ -38,7 +39,7 @@
                     <img src="media/icons/fa-users.png">
                     <h5 class="center josefin-regular">Rejoignez notre asbl</h5>
                     <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
-                    <a href="#modal1" id="download-button" class="btn btn-bleu waves-effect waves-light">En savoir +</a>
+                    <a href="#modal1" id="download-button" class="modal-trigger btn btn-bleu waves-effect waves-light">En savoir +</a>
                 </div>
             </div>
 
@@ -47,7 +48,7 @@
                     <img src="media/icons/fa-book.png">
                     <h5 class="center josefin-regular">Découvrez notre revue</h5>
                     <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
-                    <a href="revue.html" id="download-button" class="btn btn-bleu waves-effect waves-light">En savoir +</a>
+                    <a href="{{route('listeRevues') }}" id="download-button" class="btn btn-bleu waves-effect waves-light">En savoir +</a>
                 </div>
             </div>
 

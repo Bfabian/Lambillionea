@@ -20,7 +20,7 @@
         <p>{{ $client['ville'] }}</p>
         <p>{{ $client['pays'] }}</p>
         
-        <p>Numero de transaction paypal : {{ $payment_id }}</p>
+        <p>Numero de transaction paypal : {{ $numeroTransaction }}</p>
         </section>
         <section>
             <table class="responsive-table centered highlight table-bordered marge-ext-inferieure-medium">

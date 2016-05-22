@@ -160,7 +160,7 @@ class PaypalController extends BaseController{
                 //On envoie un email à l'admin pour lui informer de la nouvelle commande    
                     $client = \Session::get('client');
                     $panier = \Session::get('panier');
-                    $payment_id = \Session::get('paypal_payment_id');
+                    $numeroTransaction = \Session::get('paypal_payment_id');
                     
                      $total = 0;
                     //On parcourt tous les items du panier et on additionne les sous-totaux à la variable $total
@@ -168,7 +168,7 @@ class PaypalController extends BaseController{
                         $total += 50 * $item->quantite; //Le prix* la quantite pour chaque item du panier
                     }
           
-                     mail::send('Paniers.mail', compact('panier','client','total','payment_id'),function ($message){
+                     mail::send('Paniers.mail', compact('panier','client','total','numeroTransaction'),function ($message){
                     $message->subject("Nouvelle commande");
                     $message->to('rdily1986@gmail.com');
 
@@ -304,8 +304,7 @@ class PaypalController extends BaseController{
     public function getPaymentAbonnementStatus(){
         // Get the payment ID before session clear
 		$payment_id = \Session::get('paypal_payment_id');
-		// clear the session payment ID
-		\Session::forget('paypal_payment_id');
+	
 		$payerId = \Request::get('PayerID');
 		$token = \Request::get('token');
 		//if (empty(\Input::get('PayerID')) || empty(\Input::get('token'))) {
@@ -326,7 +325,7 @@ class PaypalController extends BaseController{
 		if ($result->getState() == 'approved') { 
                   
                     $abonnement = \Session::get('abonnement');
-                    
+                    $payment_id = \Session::get('paypal_payment_id');
           
                      mail::send('Revues.mail', array(
                         'nom' => $abonnement['nom'],
@@ -335,13 +334,15 @@ class PaypalController extends BaseController{
                         'adresse' => $abonnement['adresse'],
                         'ville' => $abonnement['ville'],
                         'pays' => $abonnement['pays'],
-                        'numeroTransaction'=>$payerId
+                        'numeroTransaction'=>$payment_id
 
                     ),function ($message){
                     $message->subject("Demande d'abonnement");
                     $message->to('rdily1986@gmail.com');
 
                 }); 
+                      // clear the session payment ID
+                        \Session::forget('paypal_payment_id');
                       //On vide la variable de session abonnement
 			\Session::forget('abonnement');
                         

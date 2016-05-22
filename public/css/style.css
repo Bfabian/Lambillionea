@@ -276,10 +276,7 @@ p {
     margin: 20px;
 }
 
-.table-cart{
-    background: #fff;
-    border-radius: 1em;
-    margin-bottom: 30px;
-    padding: 1em;
+.marge-ext-inferieure-medium{
+    margin-bottom: 40px;
 }
 

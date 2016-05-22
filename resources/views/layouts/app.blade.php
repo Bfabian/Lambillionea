@@ -23,6 +23,39 @@
         .fa-btn {
             margin-right: 6px;
         }
+        
+        .glyphicon-stack {
+        position: relative;
+        display: inline-block;
+        width: 10em;
+        height: 10em;
+        line-height: 10em;
+        vertical-align: middle;
+        }
+
+        .glyphicon-circle{
+        position: relative;
+        border-radius: 50%;
+        border: 1px solid #888;
+        width: 100%;
+        height: auto;
+        padding-top: 100%;
+        //background: black;
+        }
+
+        .glyphicon-stack-1x {
+        line-height: inherit;
+        }
+
+        .glyphicon-stack-1x, .glyphicon-stack-2x {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        }
+        .marge-ext-inferieure-medium{
+            margin-bottom: 4rem;
+        }
     </style>
 </head>
 <body id="app-layout">
@@ -52,7 +85,7 @@
                 @else
                      <li><a href="{{ url('admin/home') }}">Home</a></li>
                      <li><a href="{{url('admin/evenements') }}">Evènements du Blog</a></li>
-                    <li><a href="#">Associations Partenaires</a></li>
+                    <li><a href="{{url('admin/associations-partenaires') }}">Associations Partenaires</a></li>
                 @endif    
                 </ul>
 
@@ -78,11 +111,14 @@
         </div>
     </nav>
     <div class="container">
-        <div class="row">
+
+             @if(\Session::has('success'))
+                <div class='alert alert-success'>{{ \Session::get('success') }}</div>
+            @endif
  
             @yield('content')
             
-        </div>
+  
     </div>
 
     <!-- JavaScripts -->

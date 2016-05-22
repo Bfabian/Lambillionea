@@ -45,20 +45,16 @@
          
         </script>
         
-        <!--Include de la boite modale pour le formulaire d'abonnement à la revue (Doit être disponible partout sur le site)-->
+        <!--Include de la boite modale pour le formulaire d'abonnement à la revue et le formulaire pour devenir auteur (Doit être disponible partout sur le site)-->
          @include('Revues.formulaireAbonnement')
+         
+         @include('Articles.FormulairePropose')
   
 
          <!--S'il existe un message de session appelé message alors on va inclure la vue message-->
          @if(\Session::has('message'))
             @include('message')
          @endif 
-         
-       <!--Affichage du message après une transaction-->
-        <!--@if(\Session::has('message'))
-		@include('message')
-	@endif-->
-
 
          
     <div class="bg-grass">
@@ -126,7 +122,7 @@
         
     <!--  Scripts-->
     
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
     <script type="text/javascript" src="{{ URL::asset('js/materialize.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/init.js') }}"></script>
 

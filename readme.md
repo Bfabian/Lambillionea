@@ -22,4 +22,4 @@ L’asbl Lambillionea est un groupe d’entomologistes Belges ayant pour but l'�
 Paiement par Paypal : [rest-api-sdk-php] (https://packagist.org/packages/paypal/rest-api-sdk-php)
 Prestataire d'emailing : [Mailgun] (https://mailgun.com/sessions/new)
 
-## Lien vers le site en ligne
+## Lien vers le site en ligne (http://dileydi.be/lambillionea/public/)
